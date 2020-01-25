@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Song> songList;
     private ListView songView;
     private JSONArray JSONsong;
+    private SongAdapter songAdt=null;
     final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/song.json";
 
     @Override
@@ -72,8 +73,8 @@ public class MainActivity extends AppCompatActivity {
                         {
                             MainActivity.this.JSONsong = new JSONArray(response);
                             MainActivity.this.songList = MainActivity.this.transformJsonSongEnListSong(JSONsong);
-                            System.out.println(MainActivity.this.songList);
-                            SongAdapter songAdt = new SongAdapter(MainActivity.this, MainActivity.this.songList);
+                            //System.out.println(MainActivity.this.songList);
+                            MainActivity.this.songAdt = new SongAdapter(MainActivity.this, MainActivity.this.songList);
                             songView.setAdapter(songAdt);
                         }
                         catch (Exception e)

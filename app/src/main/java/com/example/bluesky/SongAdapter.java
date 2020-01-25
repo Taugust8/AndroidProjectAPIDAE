@@ -38,6 +38,7 @@ public class SongAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        System.out.println("ok");
         LinearLayout songLay = (LinearLayout)songInf.inflate
                 (R.layout.song, parent, false);
         //get title and artist views
