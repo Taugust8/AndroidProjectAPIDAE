@@ -9,6 +9,8 @@ public class Song {
     private String url;
     private String coverArtUrl;
 
+
+
     public Song() {
     }
 
@@ -67,6 +69,18 @@ public class Song {
 
     public void setCoverArtUrl(String coverArtUrl) {
         this.coverArtUrl = coverArtUrl;
+    }
+
+    @Override
+    public String toString() {
+        return "Song{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", artist='" + artist + '\'' +
+                ", album='" + album + '\'' +
+                ", url='" + url + '\'' +
+                ", coverArtUrl='" + coverArtUrl + '\'' +
+                '}';
     }
 
 }

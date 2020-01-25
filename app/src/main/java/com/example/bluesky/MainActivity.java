@@ -2,6 +2,12 @@ package com.example.bluesky;
 
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Song> songList;
     private ListView songView;
+    private JSONArray JSONsong;
+    final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/song.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +55,41 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         this.songView = (ListView)findViewById(R.id.lesSons);
         this.songList = new ArrayList<Song>();
-        JSONArray JSONsong=Async.getJSONSongList();
-        this.songList = this.transformJsonSongEnListSong(JSONsong);
-        SongAdapter songAdt = new SongAdapter(this, this.songList);
-        songView.setAdapter(songAdt);
+        this.getJSONSongList();
+
     }
 
+    private void getJSONSongList()
+    {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, MainActivity.url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Do something with response
+
+                        try
+                        {
+                            MainActivity.this.JSONsong = new JSONArray(response);
+                            MainActivity.this.songList = MainActivity.this.transformJsonSongEnListSong(JSONsong);
+                            System.out.println(MainActivity.this.songList);
+                            SongAdapter songAdt = new SongAdapter(MainActivity.this, MainActivity.this.songList);
+                            songView.setAdapter(songAdt);
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        });
+        queue.add(stringRequest);
+
+    }
     private ArrayList<Song> transformJsonSongEnListSong(JSONArray json)
     {
         ArrayList<Song> sons = new ArrayList<Song>();
