@@ -23,12 +23,14 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ListView;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
 import org.json.JSONArray;
+import android.graphics.Color;
 
 import org.json.JSONObject;
 
@@ -41,11 +43,13 @@ public class MainActivity extends AppCompatActivity {
     final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/song.json";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        Button btnPlay = findViewById(R.id.btn1);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -58,7 +62,15 @@ public class MainActivity extends AppCompatActivity {
         this.songList = new ArrayList<Song>();
         this.getJSONSongList();
 
+
     }
+
+    public void onClick()
+    {
+
+    }
+
+
 
     private void getJSONSongList()
     {

@@ -3,4 +3,5 @@
     <string name="title_home">Morceaux</string>
     <string name="title_dashboard">En lecture</string>
     <string name="title_notifications">Réglages</string>
+    <string name="todo">TODO</string>
 </resources>
