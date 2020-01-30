@@ -10,7 +10,8 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import android.view.View;
+import android.view.ViewGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -22,6 +23,7 @@ import java.util.Comparator;
 import android.net.Uri;
 import android.content.ContentResolver;
 import android.database.Cursor;
+import android.text.Layout;
 import android.util.JsonReader;
 import android.util.Log;
 import android.widget.ImageView;
@@ -35,7 +37,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.media.MediaPlayer;
-
+import android.view.LayoutInflater;
 import java.io.IOException;
 
 import android.graphics.Bitmap;
@@ -71,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         this.songList = new ArrayList<Song>();
         this.media=new MediaPlayer();
         this.cover= findViewById(R.id.covertArt);
+        System.out.println(this.cover);
         this.getJSONSongList();
 
 
@@ -137,7 +140,8 @@ public class MainActivity extends AppCompatActivity {
     {
         try
         {
-            media.setDataSource( this.songList.get(1).getUrl());
+            Song unSon=this.songList.get(3);
+            media.setDataSource( unSon.getUrl());
             media.prepare();
             media.start();
             //System.out.println(Uri.parse(this.songList.get(0).getCoverArtUrl()));
@@ -155,23 +159,26 @@ public class MainActivity extends AppCompatActivity {
                         catch (Exception e)
                         {
                             System.out.println(e);
-                        }
+                        }s
 
 
              */
+            MainActivity.this.cover= findViewById(R.id.covertArt);
+            //System.out.println(MainActivity.this.cover);
+
             RequestQueue queue = Volley.newRequestQueue(this);
-            ImageRequest imageRequest = new ImageRequest( this.songList.get(0).getCoverArtUrl(),
+            ImageRequest imageRequest = new ImageRequest( unSon.getCoverArtUrl(),
                     new Response.Listener<Bitmap>() {
                         @Override
                         public void onResponse(Bitmap bitmap) {
                             //MainActivity.this.cover= findViewById(R.id.covertArt);
-                          //  System.out.println(MainActivity.this.cover);
-                            //MainActivity.this.cover.setImageBitmap(bitmap);
+
+                            MainActivity.this.cover.setImageBitmap(bitmap);
                         }
-                    }, 0, 0, null,
+                    }, 0, 0, ImageView.ScaleType.CENTER_CROP,null,
                     new Response.ErrorListener() {
                         public void onErrorResponse(VolleyError error) {
-
+                            System.out.println(error);
                         }
                     });
             queue.add(imageRequest);
