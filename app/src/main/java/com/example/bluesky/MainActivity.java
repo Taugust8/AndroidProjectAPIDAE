@@ -73,18 +73,18 @@ public class MainActivity extends AppCompatActivity {
                         {
                             MainActivity.this.JSONsong = new JSONArray(response);
                             MainActivity.this.songList = MainActivity.this.transformJsonSongEnListSong(JSONsong);
-                            //System.out.println(MainActivity.this.songList);
+                            System.out.println(MainActivity.this.songList);
                             MainActivity.this.songAdt = new SongAdapter(MainActivity.this, MainActivity.this.songList);
                             songView.setAdapter(songAdt);
                         }
                         catch (Exception e)
                         {
-
+                            System.out.println(e);
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
-            public void onErrorResponse(VolleyError error) {
+            public void onErrorResponse(VolleyError error) { System.out.println(error);
 
             }
         });
