@@ -1,2 +1,0 @@
-# AndroidProjectAPIDAE
- AndroidProjectAPIDAE
