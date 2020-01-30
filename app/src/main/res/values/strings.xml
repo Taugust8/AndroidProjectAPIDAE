@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">BlueSky</string>
+    <string name="title_home">Morceaux</string>
+    <string name="title_dashboard">En lecture</string>
+    <string name="title_notifications">Réglages</string>
+</resources>
