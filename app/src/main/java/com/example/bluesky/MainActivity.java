@@ -6,6 +6,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -23,6 +24,7 @@ import android.content.ContentResolver;
 import android.database.Cursor;
 import android.util.JsonReader;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.ListView;
 import java.io.*;
 import java.net.URL;
@@ -32,13 +34,24 @@ import org.json.JSONArray;
 
 import org.json.JSONObject;
 
+import android.media.MediaPlayer;
+
+import java.io.IOException;
+
+import android.graphics.Bitmap;
+
+import android.graphics.BitmapFactory;
+
 public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Song> songList;
     private ListView songView;
     private JSONArray JSONsong;
     private SongAdapter songAdt=null;
-    final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/song.json";
+    private MediaPlayer media = null;
+    private ImageView cover = null;
+
+    final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,38 +69,42 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
         this.songView = (ListView)findViewById(R.id.lesSons);
         this.songList = new ArrayList<Song>();
+        this.media=new MediaPlayer();
+        this.cover= findViewById(R.id.covertArt);
         this.getJSONSongList();
+
+
 
     }
 
     private void getJSONSongList()
     {
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, MainActivity.url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Do something with response
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, MainActivity.url+"song.json",
+            new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    // Do something with response
 
-                        try
-                        {
-                            MainActivity.this.JSONsong = new JSONArray(response);
-                            MainActivity.this.songList = MainActivity.this.transformJsonSongEnListSong(JSONsong);
-                            System.out.println(MainActivity.this.songList);
-                            MainActivity.this.songAdt = new SongAdapter(MainActivity.this, MainActivity.this.songList);
-                            songView.setAdapter(songAdt);
-                        }
-                        catch (Exception e)
-                        {
-                            System.out.println(e);
-                        }
+                    try
+                    {
+                        MainActivity.this.JSONsong = new JSONArray(response);
+                        MainActivity.this.songList = MainActivity.this.transformJsonSongEnListSong(JSONsong);
+                        //MainActivity.this.songAdt = new SongAdapter(MainActivity.this, MainActivity.this.songList);
+                        //songView.setAdapter(songAdt);
+                        MainActivity.this.playSong();
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) { System.out.println(error);
+                    catch (Exception e)
+                    {
+                        System.out.println(e);
+                    }
+                }
+            }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error) { System.out.println(error);
 
-            }
-        });
+        }
+    });
         queue.add(stringRequest);
 
     }
@@ -103,8 +120,8 @@ public class MainActivity extends AppCompatActivity {
                 String name = jsonobject.getString("name");
                 String artist = jsonobject.getString("artist");
                 String album = jsonobject.getString("album");
-                String url = jsonobject.getString("url");
-                String coverArtUrl = jsonobject.getString("cover_art_url");
+                String url = MainActivity.url+jsonobject.getString("url");
+                String coverArtUrl =MainActivity.url+ jsonobject.getString("cover_art_url");
                 unSon=new Song(id,name,artist,album,url,coverArtUrl);
             }
             catch (Exception e)
@@ -115,6 +132,61 @@ public class MainActivity extends AppCompatActivity {
         }
         return sons;
     }
+
+    private void  playSong()
+    {
+        try
+        {
+            media.setDataSource( this.songList.get(1).getUrl());
+            media.prepare();
+            media.start();
+            //System.out.println(Uri.parse(this.songList.get(0).getCoverArtUrl()));
+
+            /* System.out.println(response.getBytes());
+
+                        byte [] imageByte=response.getBytes();
+                        //InputStream inputStreamImage=InputStream
+                        try
+                        {
+                            Bitmap image = BitmapFactory.decodeByteArray(imageByte,0,imageByte.length);
+                            System.out.println(image);
+                            MainActivity.this.cover.setImageBitmap(image);
+                        }
+                        catch (Exception e)
+                        {
+                            System.out.println(e);
+                        }
+
+
+             */
+            RequestQueue queue = Volley.newRequestQueue(this);
+            ImageRequest imageRequest = new ImageRequest( this.songList.get(0).getCoverArtUrl(),
+                    new Response.Listener<Bitmap>() {
+                        @Override
+                        public void onResponse(Bitmap bitmap) {
+                            //MainActivity.this.cover= findViewById(R.id.covertArt);
+                          //  System.out.println(MainActivity.this.cover);
+                            //MainActivity.this.cover.setImageBitmap(bitmap);
+                        }
+                    }, 0, 0, null,
+                    new Response.ErrorListener() {
+                        public void onErrorResponse(VolleyError error) {
+
+                        }
+                    });
+            queue.add(imageRequest);
+            //this.cover.set(Uri.parse(this.songList.get(0).getCoverArtUrl()));
+            //ystem.out.println(this.cover.);
+
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+
+
+    }
+
 
 
 }
