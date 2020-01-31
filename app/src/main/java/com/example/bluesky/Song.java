@@ -1,5 +1,7 @@
 package com.example.bluesky;
 
+import android.graphics.Bitmap;
+
 public class Song {
 
     private Integer id;
@@ -8,6 +10,7 @@ public class Song {
     private String album;
     private String url;
     private String coverArtUrl;
+    private Bitmap image=null;
 
 
 
@@ -69,6 +72,14 @@ public class Song {
 
     public void setCoverArtUrl(String coverArtUrl) {
         this.coverArtUrl = coverArtUrl;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImage(Bitmap image) {
+        this.image = image;
     }
 
     @Override
