@@ -56,7 +56,6 @@ public class DashboardFragment extends Fragment {
                             @Override
                             public void onResponse(Bitmap bitmap) {
                                 MainActivity.getSonEnCours().setImage(bitmap);
-                                //HomeFragment.getSongList().set(index,DashboardFragment.sonEnCours);
                                 DashboardFragment.this.setInfosSon();
                             }
                         }, 0, 0, ImageView.ScaleType.CENTER_CROP,null,

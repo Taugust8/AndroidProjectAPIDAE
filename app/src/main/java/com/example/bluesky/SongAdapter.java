@@ -37,7 +37,7 @@ public class SongAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, final ViewGroup parent)
+    public View getView(final int position, final View convertView, final ViewGroup parent)
     {
         LinearLayout songLay = (LinearLayout)songInf.inflate
                 (R.layout.song, parent, false);
@@ -47,14 +47,6 @@ public class SongAdapter extends BaseAdapter {
                 MainActivity.playSong(position);
                 return true;
             }
-        });
-        songLay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v)
-            {
-
-            }
-
         });
         TextView songView = (TextView)songLay.findViewById(R.id.song_title);
         TextView artistView = (TextView)songLay.findViewById(R.id.song_artist);
