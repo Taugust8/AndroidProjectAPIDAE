@@ -1,5 +1,6 @@
 package com.example.bluesky;
 
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -18,7 +19,6 @@ public class SongAdapter extends BaseAdapter {
         songs=theSongs;
         songInf=LayoutInflater.from(c);
     }
-
     @Override
     public int getCount() {
         return songs.size();
@@ -37,20 +37,30 @@ public class SongAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, final ViewGroup parent)
     {
-        System.out.println("ok");
         LinearLayout songLay = (LinearLayout)songInf.inflate
                 (R.layout.song, parent, false);
-        //get title and artist views
+        songLay.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                MainActivity.playSong(position);
+                return true;
+            }
+        });
+        songLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+
+            }
+
+        });
         TextView songView = (TextView)songLay.findViewById(R.id.song_title);
         TextView artistView = (TextView)songLay.findViewById(R.id.song_artist);
-        //get song using position
         Song currSong = songs.get(position);
-        //get title and artist strings
         songView.setText(currSong.getName());
         artistView.setText(currSong.getArtist());
-        //set position as tag
         songLay.setTag(position);
         return songLay;
     }
