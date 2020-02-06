@@ -20,4 +20,5 @@
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_bright"
         android:textSize="36sp"></TextView>
+    
 </LinearLayout>
