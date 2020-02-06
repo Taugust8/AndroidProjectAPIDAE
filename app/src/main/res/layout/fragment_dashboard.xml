@@ -10,12 +10,18 @@
     android:background="#333">
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="311dp"
-        android:layout_height="293dp"
-        android:background="@drawable/logo"
-        android:contentDescription="@string/todo"
-        android:gravity="center" />
+        android:id="@+id/covertArt"
+        android:layout_width="match_parent"
+        android:layout_height="302dp"
+        android:visibility="visible"></ImageView>
+
+    <TextView
+        android:id="@+id/titre"
+        android:layout_width="match_parent"
+        android:layout_height="106dp"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_blue_bright"
+        android:textSize="36sp"></TextView>
 
     <LinearLayout
         android:layout_width="411dp"
@@ -66,18 +72,6 @@
         android:progress="0" />
 
 
-    <ImageView
-        android:id="@+id/covertArt"
-        android:layout_width="match_parent"
-        android:layout_height="302dp"
-        android:visibility="visible"></ImageView>
 
-    <TextView
-        android:id="@+id/titre"
-        android:layout_width="match_parent"
-        android:layout_height="106dp"
-        android:textAlignment="center"
-        android:textColor="@android:color/holo_blue_bright"
-        android:textSize="36sp"></TextView>
     
 </LinearLayout>
