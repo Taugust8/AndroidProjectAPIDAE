@@ -85,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
         try
         {
             Song unSon= HomeFragment.getSongList().get(index);
-            System.out.println(unSon.getUrl());
-            System.out.println(MainActivity.sonEnCours);
             if(MainActivity.sonEnCours==null||!unSon.getUrl().equals(MainActivity.sonEnCours.getUrl()))
             {
 
@@ -109,6 +107,11 @@ public class MainActivity extends AppCompatActivity {
         {
             System.out.println(e);
         }
+    }
+
+    public static void pauseSong()
+    {
+        MainActivity.lecteur.pause();
     }
     public static MediaPlayer getLecteur() {
         return lecteur;
