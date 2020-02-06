@@ -53,7 +53,7 @@ import android.graphics.BitmapFactory;
 public class MainActivity extends AppCompatActivity {
 
 
-
+    private static NavController navController=null;
     final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/";
     private static MediaPlayer lecteur=null;
     private static Song sonEnCours = null;
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        MainActivity.navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onPrepared(MediaPlayer mp) {
                         MainActivity.lecteur.start();
+                        MainActivity.navController.navigate(R.id.navigation_dashboard);
                     }
                 });
             }
