@@ -30,8 +30,7 @@ public class DashboardFragment extends Fragment {
     private DashboardViewModel dashboardViewModel;
     private TextView titre = null;
     private ImageView cover=null;
-    private MediaPlayer media = null;
-    private static Song sonEnCours = null;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -40,25 +39,15 @@ public class DashboardFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
         this.titre=root.findViewById(R.id.titre);
         this.cover=root.findViewById(R.id.covertArt);
-        this.media=new MediaPlayer();
-        this.playSong(0);
+        this.setInfosSon();
         return root;
     }
 
-    private void  playSong(final Integer index)
+    public void setInfosSon()
     {
-        try
+        Song unSon= MainActivity.getSonEnCours();
+        if(unSon!=null)
         {
-            Song unSon= HomeFragment.getSongList().get(index);
-            System.out.println(unSon.getUrl());
-            System.out.println(DashboardFragment.sonEnCours);
-            if(DashboardFragment.sonEnCours==null||!unSon.getUrl().equals(DashboardFragment.sonEnCours.getUrl()))
-            {
-                media.setDataSource(unSon.getUrl());
-                media.prepare();
-                media.start();
-            }
-            DashboardFragment.sonEnCours=unSon;
             if(unSon.getImage()==null)
             {
                 RequestQueue queue = Volley.newRequestQueue(getContext());
@@ -66,8 +55,8 @@ public class DashboardFragment extends Fragment {
                         new Response.Listener<Bitmap>() {
                             @Override
                             public void onResponse(Bitmap bitmap) {
-                                DashboardFragment.sonEnCours.setImage(bitmap);
-                                HomeFragment.getSongList().set(index,DashboardFragment.sonEnCours);
+                                MainActivity.getSonEnCours().setImage(bitmap);
+                                //HomeFragment.getSongList().set(index,DashboardFragment.sonEnCours);
                                 DashboardFragment.this.setInfosSon();
                             }
                         }, 0, 0, ImageView.ScaleType.CENTER_CROP,null,
@@ -78,27 +67,11 @@ public class DashboardFragment extends Fragment {
                         });
                 queue.add(imageRequest);
             }
-        }
-        catch(Exception e)
-        {
-            System.out.println(e);
-        }
-    }
-
-    public void setInfosSon()
-    {
-        Song unSon= DashboardFragment.getSonEnCours();
-        if(unSon!=null)
-        {
-            System.out.println("non");
             this.titre.setText(unSon.getArtist()+" - "+unSon.getName());
             this.cover.setImageBitmap(unSon.getImage());
         }
     }
 
-    public static Song getSonEnCours() {
-        return sonEnCours;
-    }
 
 
 

@@ -10,6 +10,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.bluesky.ui.dashboard.DashboardFragment;
+import com.example.bluesky.ui.home.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,14 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/";
-
-
+    private static MediaPlayer lecteur=null;
+    private static Song sonEnCours = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        MainActivity.lecteur=new MediaPlayer();
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -72,7 +73,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public static void  playSong(final Integer index)
+    {
+        try
+        {
+            Song unSon= HomeFragment.getSongList().get(index);
+            System.out.println(unSon.getUrl());
+            System.out.println(MainActivity.sonEnCours);
+            if(MainActivity.sonEnCours==null||!unSon.getUrl().equals(MainActivity.sonEnCours.getUrl()))
+            {
 
+                MainActivity.lecteur.stop();
+                MainActivity.lecteur=new MediaPlayer();
+                MainActivity.lecteur.setDataSource(unSon.getUrl());
+                MainActivity.lecteur.prepare();
+                MainActivity.lecteur.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    @Override
+                    public void onPrepared(MediaPlayer mp) {
+                        MainActivity.lecteur.start();
+                    }
+                });
+            }
+            MainActivity.sonEnCours=unSon;
+
+        }
+        catch(Exception e)
+        {
+            System.out.println(e);
+        }
+    }
+    public static MediaPlayer getLecteur() {
+        return lecteur;
+    }
+
+    public static Song getSonEnCours() {
+        return sonEnCours;
+    }
 
     public static String getUrl() {
         return url;
