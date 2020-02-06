@@ -62,16 +62,9 @@
         style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="9dp"
-        android:layout_above="@+id/bottom_header_relativelayout"
         android:max="100"
         android:progress="0" />
 
-    <android:id="@+id/unSonLayout"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
     <ImageView
         android:id="@+id/covertArt"
