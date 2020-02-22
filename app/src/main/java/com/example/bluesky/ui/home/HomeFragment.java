@@ -29,7 +29,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment
+{
 
     private HomeViewModel homeViewModel;
     private ListView songView;
@@ -38,21 +39,28 @@ public class HomeFragment extends Fragment {
 
 
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
-                ViewModelProviders.of(this).get(HomeViewModel.class);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
+        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
          this.songView = root.findViewById(R.id.lesSons);
         HomeFragment.songList = new ArrayList<Song>();
-        homeViewModel.getText().observe(this, new Observer<String>() {
+
+        homeViewModel.getText().observe(this, new Observer<String>()
+        {
             @Override
-            public void onChanged(@Nullable String s) {
+            public void onChanged(@Nullable String s)
+            {
 
             }
         });
+
         this.getJSONSongList();
+
+
         return root;
+
+
     }
 
 
@@ -82,14 +90,18 @@ public class HomeFragment extends Fragment {
             }
         });
         queue.add(stringRequest);
+
     }
+
     private ArrayList<Song> transformJsonSongEnListSong(JSONArray json)
     {
         ArrayList<Song> sons = new ArrayList<Song>();
-        for (int i = 0; i < json.length(); i++) {
+        for (int i = 0; i < json.length(); i++)
+        {
 
             Song unSon=null;
-            try{
+            try
+            {
                 JSONObject jsonobject = json.getJSONObject(i);
                 Integer id = jsonobject.getInt("id");
                 String name = jsonobject.getString("name");

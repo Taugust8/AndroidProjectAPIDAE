@@ -2,7 +2,8 @@ package com.example.bluesky;
 
 import android.graphics.Bitmap;
 
-public class Song {
+public class Song
+{
 
     private Integer id;
     private String name;
@@ -10,14 +11,14 @@ public class Song {
     private String album;
     private String url;
     private String coverArtUrl;
-    private Bitmap image=null;
+    private Bitmap image = null;
 
 
 
-    public Song() {
-    }
+    public Song() {}
 
-    public Song(Integer id, String name, String artist, String album, String url, String coverArtUrl) {
+    public Song(Integer id, String name, String artist, String album, String url, String coverArtUrl)
+    {
         this.id = id;
         this.name = name;
         this.artist = artist;
@@ -83,7 +84,8 @@ public class Song {
     }
 
     @Override
-    public String toString() {
+    public String toString()
+    {
         return "Song{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
