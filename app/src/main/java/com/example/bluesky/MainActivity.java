@@ -17,7 +17,7 @@ import androidx.navigation.ui.NavigationUI;
 
 
 import android.media.MediaPlayer;
-
+public class MainActivity extends AppCompatActivity {
     private static NavController navController=null;
     final private static String url = "http://webinfo.iutmontp.univ-montp2.fr/~chambaudM/BlueSky-JS-Project/";
     private static MediaPlayer lecteur = null;
@@ -32,7 +32,6 @@ import android.media.MediaPlayer;
         MainActivity.lecteur = new MediaPlayer();
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        Button btnPlay = findViewById(R.id.btn1);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
