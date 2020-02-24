@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.bluesky.ui.dashboard.DashboardFragment;
+
 public class SongAdapter extends BaseAdapter
 {
 
@@ -50,7 +52,7 @@ public class SongAdapter extends BaseAdapter
             @Override
             public boolean onTouch(View v, MotionEvent event)
             {
-                MainActivity.playSong(position);
+                DashboardFragment.getInstance().playSong(position);
                 return true;
             }
         });
@@ -61,11 +63,6 @@ public class SongAdapter extends BaseAdapter
         artistView.setText(currSong.getArtist());
         songLay.setTag(position);
         return songLay;
-    }
-
-    public static ArrayList<Song> getSongs()
-    {
-        return songs;
     }
 
 

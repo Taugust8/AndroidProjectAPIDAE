@@ -14,9 +14,6 @@ public class Song
     private Bitmap image = null;
 
 
-
-    public Song() {}
-
     public Song(Integer id, String name, String artist, String album, String url, String coverArtUrl)
     {
         this.id = id;
@@ -47,32 +44,12 @@ public class Song
         return artist;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
-    }
-
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
     public String getUrl() {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
     public String getCoverArtUrl() {
         return coverArtUrl;
-    }
-
-    public void setCoverArtUrl(String coverArtUrl) {
-        this.coverArtUrl = coverArtUrl;
     }
 
     public Bitmap getImage() {

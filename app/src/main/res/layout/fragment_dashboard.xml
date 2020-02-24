@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#333"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingLeft="16dp"
@@ -12,17 +11,27 @@
     <ImageView
         android:id="@+id/covertArt"
         android:layout_width="match_parent"
-        android:layout_height="237dp"
+        android:layout_height="201dp"
+        android:contentDescription="Pochette album"
         android:visibility="visible"></ImageView>
 
     <LinearLayout
         android:layout_width="411dp"
-        android:layout_height="40dp"
-        android:background="#333"
+        android:layout_height="71dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
-        android:paddingRight="16dp"></LinearLayout>
+        android:paddingRight="16dp">
+
+        <TextView
+            android:id="@+id/aucunMorceau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Aucun morceau en lecture"
+            android:textAlignment="center"
+            android:textColor="#FF00DDFF" />
+    </LinearLayout>
 
 
     <TextView
@@ -31,12 +40,11 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@android:color/holo_blue_bright"
-        android:textSize="30sp"></TextView>
+        android:textSize="20sp"></TextView>
 
     <LinearLayout
         android:layout_width="411dp"
         android:layout_height="30dp"
-        android:background="#333"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
@@ -45,7 +53,6 @@
     <LinearLayout
         android:layout_width="411dp"
         android:layout_height="79dp"
-        android:background="#333"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
@@ -54,37 +61,28 @@
         <Button
             android:id="@+id/btn0"
             style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:background="@android:drawable/ic_media_rew"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+            android:layout_width="60dp"
+            android:layout_height="50dp"
+            android:background="@android:drawable/ic_media_rew" />
 
         <Button
             android:id="@+id/btn1"
             style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:background="@android:drawable/ic_media_play" />
-
-        <Button
-            android:id="@+id/btn2"
-            style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:background="@android:drawable/ic_media_pause" />
 
         <Button
             android:id="@+id/btn3"
             style="@style/Widget.MaterialComponents.Button.Icon"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:background="@android:drawable/ic_media_ff" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="411dp"
         android:layout_height="20dp"
-        android:background="#333"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingLeft="16dp"
@@ -94,15 +92,13 @@
             android:id="@+id/songCurrentDurationLabel"
             android:layout_width="189dp"
             android:layout_height="wrap_content"
-            android:text="0:00"
             android:textAlignment="viewStart"
             android:textColor="#FF00DDFF" />
 
         <TextView
             android:id="@+id/songTotalDurationLabel"
-            android:layout_width="match_parent"
+            android:layout_width="189dp"
             android:layout_height="wrap_content"
-            android:text="0:00"
             android:textAlignment="viewEnd"
             android:textColor="#FF00DDFF" />
 

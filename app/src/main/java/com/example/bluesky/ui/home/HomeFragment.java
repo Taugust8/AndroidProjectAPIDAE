@@ -32,7 +32,6 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment
 {
 
-    private HomeViewModel homeViewModel;
     private ListView songView;
     private static ArrayList<Song> songList;
     private JSONArray JSONsong;
@@ -41,19 +40,10 @@ public class HomeFragment extends Fragment
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        homeViewModel = ViewModelProviders.of(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
          this.songView = root.findViewById(R.id.lesSons);
         HomeFragment.songList = new ArrayList<Song>();
 
-        homeViewModel.getText().observe(this, new Observer<String>()
-        {
-            @Override
-            public void onChanged(@Nullable String s)
-            {
-
-            }
-        });
 
         this.getJSONSongList();
 
